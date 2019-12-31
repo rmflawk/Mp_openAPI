@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/bnv_aa"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_left_black_24dp"
+        android:title="홈"/>
+
+    <item android:id="@+id/bnv_bb"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_left_black_24dp"
+        android:title="약국"/>
+
+    <item android:id="@+id/bnv_cc"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_left_black_24dp"
+        android:title="병원"/>
+
+    <item android:id="@+id/bnv_dd"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_left_black_24dp"
+        android:title="응급센터"/>
+
+    <item android:id="@+id/bnv_ee"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_left_black_24dp"
+        android:title="선물"/>
+
+</menu>

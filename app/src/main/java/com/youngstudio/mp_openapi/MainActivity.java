@@ -37,7 +37,6 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-//    public static int i=0;
     int n=2;
 
     String apiKey="";
@@ -52,22 +51,10 @@ public class MainActivity extends AppCompatActivity {
     String[] s = new String[4];
 
 
-//    public void plus(){
-//        i++;
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        if(i==0){
-//            Intent intent= new Intent(this,Main2Activity.class);
-//            //intent.putExtra("av", Context);
-//            startActivity(intent);
-//            finish();
-//            i++;
-//        }
 
         listView= findViewById(R.id.listview);
         adapter= new ArrayAdapter(this, R.layout.listview_item, items);
@@ -81,26 +68,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String s = items.get(i);
 
-                String ss = s.substring(s.lastIndexOf("x")+3);
+                String s= items.get(i);
 
-                String s2= ss.substring(0, 8);//y
+                Geocoder geocoder= new Geocoder(MainActivity.this,Locale.KOREA);
 
-                String sss = s.substring(s.lastIndexOf("표")+1);
+                try{
+                    List<Address> addresses= geocoder.getFromLocationName(s, 3);
 
-                String s3 =sss.substring(0, 7);//x
+                    StringBuffer buffer= new StringBuffer();
+                    for(Address t : addresses){
+                        buffer.append( t.getLatitude()+", "+ t.getLongitude()+"\n");
+                    }
+                    //대표 좌표값(첫번째 결과)의 위도와 경도
+                    lat1= addresses.get(0).getLatitude();
+                    lng1= addresses.get(0).getLongitude();
 
-                Toast.makeText(MainActivity.this,s2 + " \n" + s3,Toast.LENGTH_SHORT).show();
 
-//                lat1= Double.parseDouble(s2);
-//                lng1= Double.parseDouble(s3);
-                lat1= Double.parseDouble(s3);
-                lng1= Double.parseDouble(s2);
+                }catch(Exception e){
+                    Toast.makeText(MainActivity.this, "검색 실패", Toast.LENGTH_SHORT).show();
+                }
 
                 Intent intent= new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-
                 //지도좌표값 데이터 정보
                 Uri uri= Uri.parse("geo:"+ lat1 + ","+lng1+"?z=16"+"&q="+lat1+","+lng1);// 끝에 (aa)라고 하면 마커에 이름찍힘
                 intent.setData(uri);
@@ -108,11 +98,48 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
 
 
+//                String s = items.get(i);
+//
+//                String ss = s.substring(s.lastIndexOf("x")+3);
+//
+//                String s2= ss.substring(0, 8);//y
+//
+//                String sss = s.substring(s.lastIndexOf("표")+1);
+//
+//                String s3 =sss.substring(0, 7);//x
+//
+//                Toast.makeText(MainActivity.this,s2 + " \n" + s3,Toast.LENGTH_SHORT).show();
+//
+//                Toast.makeText(MainActivity.this,s2 ,Toast.LENGTH_SHORT).show();
+//
+//
+//                try {
+//                    lat1= Double.parseDouble(s3);
+//                    lng1= Double.parseDouble(s2);
+//
+//                }catch(Exception e){
+//                    Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
+//                }
+
+
+
+
+
+//                lat1= Double.parseDouble(s3);
+//                lng1= Double.parseDouble(s2);
+//
+//                Intent intent= new Intent();
+//                intent.setAction(Intent.ACTION_VIEW);
+//
+//                //지도좌표값 데이터 정보
+//                Uri uri= Uri.parse("geo:"+ lat1 + ","+lng1+"?z=16"+"&q="+lat1+","+lng1);// 끝에 (aa)라고 하면 마커에 이름찍힘
+//                intent.setData(uri);
+//
+//                startActivity(intent);
+
             }
         });
-
-
-    }
+    }//onCreate
 
 
     public void clickBtn(View view) {
